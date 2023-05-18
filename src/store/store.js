@@ -24,9 +24,19 @@ export default createStore({
       state.products = products
     },
     SET_CART: (state, product) => {
+      state.products.forEach(el => {
+        if (el === product) {
+          el.inCart = true
+        }
+      })
       state.cart.push(product)
     },
     REMOVE_CART_ITEM: (state, cartItem) => {
+      state.products.forEach(el => {
+        if (el === cartItem) {
+          el.inCart = false
+        }
+      })
       state.cart = state.cart.filter(el => el !== cartItem)
     },
     SET_FAVOURITES: (state, product) => {

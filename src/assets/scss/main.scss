@@ -54,64 +54,20 @@ button {
   overflow: hidden;
 }
 
-.wrapper {
-  max-width: 1080px;
-  height: 100%;
-  margin: 0 auto;
+.icon-btn {
+  width: 28px;
+  height: 28px;
 
-  background: #fff;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04);
-  border-radius: 20px;
-}
-
-
-// header                                             
-
-.header {
-  padding: 45px;
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #EAEAEA;
-}
-
-.logo {
   display: flex;
   align-items: center;
-  & img {
-    width: 40px;
-    height: 40px;
-    margin-right: 16px;
-  }
-  &__title,
-  &__description {
-    margin: 0;
-  }
-  &__title {
-    font-size: 20px;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-  &__description {
-    color: #9D9D9D;
+  justify-content: center;
+
+  border-radius: 6px;
+  transition:  0.2s ease-in-out;
+  &:hover {
+    border: transparent;
   }
 }
-
-.menu {
-  width: 200px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  &__price {
-    display: flex;
-  }
-  & span {
-    margin-left: 10px;
-
-    font-weight: 600;
-    color: #9D9D9D;
-  }
-}
-
   // banner                                           
 
 .banner {
@@ -146,188 +102,5 @@ button {
 
     background: #A5D364;
     border-radius: 110px;
-  }
-}
-
-      // search                                  
-
-.cards-header {
-  margin-bottom: 40px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  &__title {
-    font-size: 32px;
-    font-weight: 700;
-  }
-}
-
-.search {
-  padding: 0 15px;
-  display: flex;
-  align-items: center;
-
-  border: 1px solid #f3f3f3;
-  border-radius: 10px;
-  & input {
-    width: 200px;
-    padding: 10px;
-
-    font-family: inherit;
-    font-size: 16px;
-    border: none;
-  }
-  & input:focus {
-    outline: none;
-  }
-}
-
-      // cards                                  
-
-.main-wrapper {
-  height: 100%;
-  padding: 60px;
-  padding-bottom: 0;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  row-gap: 50px;
-}
-
-.card {
-  position: relative;
-  width: 210px;
-  padding: 28px;
-
-  border: 1px solid #f3f3f3;
-  border-radius: 40px;
-  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
-  &:hover {
-    box-shadow: 0px 20px 35px rgba(0, 0, 0, 0.06);
-    transform: translateY(-5px);
-  }
-  &__img {
-    width: 133px;
-    height: 112px;
-  }
-  &__title {
-    font-size: inherit;
-    font-weight: 400;
-  }
-  &__bottom {
-    display: flex;
-    justify-content: space-between;
-  }
-  &__subtitle,
-  &__price {
-    margin: 0;
-  }
-  &__subtitle {
-    font-size: 11px;
-    font-weight: 500;
-    color: #BDBDBD;
-  }
-  &__price {
-    font-weight: 700;
-  }
-}
-
-.like-btn {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-}
-
-
-      // cart                                   
-
-.overlay {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1;
-
-  width: 100%;
-  height: 100%;
-
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.cart {
-  position: absolute;
-  right: 0;
-
-  width: 420px;
-  height: 100%;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-
-  background-color: #fff;
-  box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
-  & h2 {
-    margin: 0;
-    font-size: 24px;
-  }
-  &___list {
-    flex: 1;
-  }
-  &__item {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    margin-bottom: 40px;
-
-    border: 1px solid #f3f3f3;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  & img {
-    width: 70px;
-    height: 70px;
-    margin-right: 20px;
-  }
-  &__text {
-    width: 150px;
-  }
-  & h3 {
-    margin: 0;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: 400;
-  }
-  & p {
-    margin: 0;
-
-    font-weight: 700;
-  }
-  &__btn {
-    width: 100%;
-    padding: 18px 0;
-
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
-
-    background-color: #9DD458;
-    border-radius: 18px;
-  }
-}
-
-.remove-btn {
-  margin-left: auto;
-}
-
-.cost__item {
-  display: flex;
-  align-items: baseline;
-  margin-bottom: 20px;
-  & div {
-    flex: 1;
-    margin: 0 10px;
-    border-bottom: 1px dashed #dfdfdf;
   }
 }

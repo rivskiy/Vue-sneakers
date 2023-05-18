@@ -57,5 +57,44 @@ function addToFavourites(product) {
 }
 </script>
 
-<style>
+<style lang="scss">
+
+.main-wrapper {
+  height: 100%;
+  padding: 60px;
+  padding-bottom: 0;
+}
+
+.cards-header {
+  margin-bottom: 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__title {
+    font-size: 32px;
+    font-weight: 700;
+  }
+}
+
+.search {
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+
+  border: 1px solid #f3f3f3;
+  border-radius: 10px;
+  & input {
+    width: 200px;
+    padding: 10px;
+
+    font-family: inherit;
+    font-size: 16px;
+    border: none;
+  }
+  & input:focus {
+    outline: none;
+  }
+}
+
 </style>

@@ -1,11 +1,13 @@
 <template>
   <svg
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    v-html="path"
+    fill="none"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke="#dadada"
+    v-html="patch"
   >
   </svg>
 </template>
@@ -13,10 +15,10 @@
 <script>
 import icons from "@/icons";
 export default {
-  props: ['name', 'width', 'height'],
+  props: ["name"],
   data() {
     return {
-      path: icons[this.name],
+      patch: icons[this.name],
     };
   },
 };

@@ -1,40 +1,25 @@
 <template>
-  <li class="cart__item">
+  <li class="cart-item">
     <img
+      class="cart-item__img"
       :src="require(`@/assets/img/sneakers/${cartItem.img}`)"
       alt="Sneakers"
     />
-    <div class="cart__text">
-      <h3>{{ cartItem.title }}</h3>
-      <p>{{ cartItem.price }} руб.</p>
+    <div class="cart-item__text">
+      <h3 class="cart-item__name">{{ cartItem.title }}</h3>
+      <p class="cart-item__price">{{ cartItem.price }} руб.</p>
     </div>
-    <button class="remove-btn" @click="emit('removeCartItem', cartItem)">
-      <svg
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          x="0.5"
-          y="0.5"
-          width="31"
-          height="31"
-          rx="7.5"
-          fill="white"
-          stroke="#DBDBDB"
-        />
-        <path
-          d="M20.0799 18.6155L17.6311 16.1667L20.0798 13.718C21.0241 12.7738 19.5596 11.3093 18.6154 12.2536L16.1667 14.7023L13.7179 12.2535C12.7738 11.3095 11.3095 12.7738 12.2535 13.7179L14.7023 16.1667L12.2536 18.6154C11.3093 19.5596 12.7738 21.0241 13.718 20.0798L16.1667 17.6311L18.6155 20.0799C19.5597 21.0241 21.0241 19.5597 20.0799 18.6155Z"
-          fill="#B5B5B5"
-        />
-      </svg>
+    <button
+      class="icon-btn remove-btn"
+      @click="emit('removeCartItem', cartItem)"
+    >
+      <BaseIcon name="remove" />
     </button>
   </li>
 </template>
 
 <script setup>
+import BaseIcon from "@/components/BaseIcon.vue";
 defineProps({
   cartItem: {
     type: Object,
@@ -42,8 +27,55 @@ defineProps({
   },
 });
 
-const emit = defineEmits(['removeCartItem'])
+const emit = defineEmits(["removeCartItem"]);
 </script>
 
-<style>
+<style lang="scss">
+.remove-btn {
+  margin-left: auto;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 40px;
+
+  border: 1px solid #f3f3f3;
+  border-radius: 20px;
+  overflow: hidden;
+  &__img {
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+  }
+  &__text {
+    width: 150px;
+  }
+  &__name {
+    margin: 0;
+    margin-bottom: 5px;
+
+    font-size: 14px;
+    font-weight: 400;
+  }
+  &__price {
+    margin: 0;
+
+    font-weight: 700;
+  }
+}
+
+.remove-btn {
+  border: 2px solid #dadada;
+  & svg {
+    stroke-width: 3px;
+  }
+  &:hover {
+    background-color: #FF8585;
+    & svg {
+      stroke: #fff;
+    }
+  }
+}
 </style>
