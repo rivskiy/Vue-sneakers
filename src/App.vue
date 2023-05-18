@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <Header/>
-    <Cart style="display: none;"/>
+    <Cart v-show="true"/>
     <router-view/>
   </div>
 </template>

@@ -21,14 +21,40 @@
           <input type="text" placeholder="Поиск" />
         </div>
       </div>
-      <Card/>
+      <ul class="cards">
+        <Card
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+          @add-to-cart="addToCart(product)"
+          @add-to-favourites="addToFavourites(product)"
+        />
+      </ul>
     </section>
   </main>
 </template>
 
 <script setup>
 import Card from '@/components/TheCard'
+import { useStore } from 'vuex'
+import { onMounted, computed } from 'vue'
 
+const store = useStore()
+
+function getProducts() {
+  store.dispatch('GET_PRODUCTS_FROM_API')
+}
+onMounted(getProducts)
+
+const products = computed(() => store.getters.PRODUCTS)
+
+function addToCart(product) {
+  store.dispatch('ADD_TO_CART', product)
+}
+
+function addToFavourites(product) {
+  store.dispatch('ADD_TO_FAVOURITES', product)
+}
 </script>
 
 <style>

@@ -56,7 +56,7 @@ button {
 
 .wrapper {
   max-width: 1080px;
-  height: 100vh;
+  height: 100%;
   margin: 0 auto;
 
   background: #fff;
@@ -186,6 +186,7 @@ button {
       // cards                                  
 
 .main-wrapper {
+  height: 100%;
   padding: 60px;
   padding-bottom: 0;
 }
