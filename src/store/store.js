@@ -74,9 +74,6 @@ export default createStore({
     REMOVE_CART_ITEM({commit}, cartItem) {
       commit('REMOVE_CART_ITEM', cartItem)
     },
-    SHOW_CART({commit}) {
-      commit('SHOW_CART')
-    },
     ADD_TO_FAVOURITES({commit}, product) {
       commit('SET_FAVOURITES', product)
     },

@@ -32,9 +32,8 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-function showCart() {
-  store.dispatch("SHOW_CART");
-}
+const showCart = () => store.commit('SHOW_CART')
+
 </script>
 
 <style lang="scss">

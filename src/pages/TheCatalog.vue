@@ -41,20 +41,15 @@ import { onMounted, computed } from 'vue'
 
 const store = useStore()
 
-function getProducts() {
-  store.dispatch('GET_PRODUCTS_FROM_API')
-}
+const getProducts = () => store.dispatch('GET_PRODUCTS_FROM_API')
 onMounted(getProducts)
 
 const products = computed(() => store.getters.PRODUCTS)
 
-function addToCart(product) {
-  store.dispatch('ADD_TO_CART', product)
-}
+const addToCart = product => store.dispatch('ADD_TO_CART', product)
 
-function addToFavourites(product) {
-  store.dispatch('ADD_TO_FAVOURITES', product)
-}
+const addToFavourites = product => store.dispatch('ADD_TO_FAVOURITES', product)
+
 </script>
 
 <style lang="scss">

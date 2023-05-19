@@ -1,5 +1,10 @@
 # sneakers
 
+### Интернет магазин кроссовок
+- Vue + Vuex + Vue Router
+
+---
+
 ## Project setup
 ```
 npm install

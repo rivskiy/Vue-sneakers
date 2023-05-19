@@ -42,13 +42,9 @@ const store = useStore();
 
 const cartItems = computed(() => store.getters.CART);
 
-function removeCartItem(cartItem) {
-  store.dispatch("REMOVE_CART_ITEM", cartItem);
-}
+const removeCartItem = cartItem => store.dispatch("REMOVE_CART_ITEM", cartItem);
 
-function showCart() {
-  store.dispatch('SHOW_CART')
-}
+const showCart = () => store.commit('SHOW_CART')
 
 const ordered = ref(false)
 

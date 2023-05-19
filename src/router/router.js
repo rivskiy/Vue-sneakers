@@ -11,12 +11,12 @@ const routes = [
     component: Catalog
   },
   {
-    path: '/',
+    path: '/favorites',
     name: 'favorites',
     component: Favorites
   },
   {
-    path: '/',
+    path: '/orders',
     name: 'orders',
     component: Orders
   },

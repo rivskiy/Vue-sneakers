@@ -1,24 +1,30 @@
 <template>
   <header class="header">
-    <div class="logo">
-      <img src="@/assets/img/logo.png" alt="logo" />
-      <div class="logo__container">
-        <h2 class="logo__title">Vue sneakers</h2>
-        <p class="logo__description">Магазин лучших кроссовок</p>
+    <router-link to="/">
+      <div class="logo">
+        <img src="@/assets/img/logo.png" alt="logo" />
+        <div class="logo__container">
+          <h2 class="logo__title">Vue sneakers</h2>
+          <p class="logo__description">Магазин лучших кроссовок</p>
+        </div>
       </div>
-    </div>
+    </router-link>
     <ul class="menu">
       <li class="menu__sum" @click="showCart">
-        <BaseIcon name="cart" class="menu__icon"/>
+        <BaseIcon name="cart" class="menu__icon" />
         <span>1205 руб.</span>
       </li>
       <li>
-        <BaseIcon name="like" class="menu__icon"/>
-        <span class="visually-hidden">Закладки</span>
+        <router-link to="/favorites">
+          <BaseIcon name="like" class="menu__icon"/>
+          <span class="visually-hidden">Избранное</span>
+        </router-link>
       </li>
       <li>
-        <BaseIcon name="user" class="menu__icon"/>
-        <span class="visually-hidden">Профиль</span>
+        <router-link to="/orders">
+          <BaseIcon name="user" class="menu__icon" />
+          <span class="visually-hidden">Профиль</span>
+        </router-link>
       </li>
     </ul>
   </header>
@@ -26,14 +32,11 @@
 
 <script setup>
 import BaseIcon from "@/components/BaseIcon.vue";
-import { useStore } from 'vuex'
+import { useStore } from "vuex";
 
-const store = useStore()
+const store = useStore();
 
-function showCart() {
-  store.dispatch('SHOW_CART')
-}
-
+const showCart = () => store.commit("SHOW_CART");
 </script>
 
 <style lang="scss">
@@ -78,7 +81,7 @@ function showCart() {
     }
   }
   &__icon {
-    stroke: #9B9B9B;
+    stroke: #9b9b9b;
   }
   & span {
     margin-left: 10px;
