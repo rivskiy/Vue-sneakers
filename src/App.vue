@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <Header @show-cart="showCart = !showCart"/>
-    <Cart v-show="showCart" @hide-cart="showCart = !showCart"/>
+    <Header/>
+    <Cart v-show="showCart"/>
     <router-view/>
   </div>
 </template>
@@ -9,9 +9,12 @@
 <script setup>
 import Header from '@/components/TheHeader'
 import Cart from '@/components/TheCart'
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
+import { useStore } from 'vuex';
 
-const showCart = ref(false)
+const store = useStore()
+
+const showCart = computed(() => store.state.showCart)
 </script>
 
 <style lang="scss">

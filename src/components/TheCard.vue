@@ -44,6 +44,8 @@ const props = defineProps({
 
 const emit = defineEmits(["addToCart", "addToFavourites"]);
 
+const like = ref(false)
+
 </script>
 
 <style lang="scss">

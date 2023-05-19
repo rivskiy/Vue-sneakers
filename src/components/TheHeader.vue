@@ -8,7 +8,7 @@
       </div>
     </div>
     <ul class="menu">
-      <li class="menu__sum" @click="emit('showCart')">
+      <li class="menu__sum" @click="showCart">
         <BaseIcon name="cart" class="menu__icon"/>
         <span>1205 руб.</span>
       </li>
@@ -26,8 +26,14 @@
 
 <script setup>
 import BaseIcon from "@/components/BaseIcon.vue";
+import { useStore } from 'vuex'
 
-const emit = defineEmits(['showCart'])
+const store = useStore()
+
+function showCart() {
+  store.dispatch('SHOW_CART')
+}
+
 </script>
 
 <style lang="scss">

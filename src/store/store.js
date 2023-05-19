@@ -6,7 +6,8 @@ export default createStore({
   state: {
     products: [],
     cart: [],
-    favourites: []
+    favourites: [],
+    showCart: false
   },
   getters: {
     PRODUCTS(state) {
@@ -15,9 +16,12 @@ export default createStore({
     CART(state) {
       return state.cart
     },
+    SHOW_CART(state) {
+      return state.showCart
+    },
     FAVOURITES(state) {
       return state.favourites
-    }
+    },
   },
   mutations: {
     SET_PRODUCTS_TO_STATE: (state, products) => {
@@ -38,6 +42,9 @@ export default createStore({
         }
       })
       state.cart = state.cart.filter(el => el !== cartItem)
+    },
+    SHOW_CART: (state) => {
+      state.showCart = !state.showCart
     },
     SET_FAVOURITES: (state, product) => {
       if (state.favourites.find(el => el === product)) {
@@ -66,6 +73,9 @@ export default createStore({
     },
     REMOVE_CART_ITEM({commit}, cartItem) {
       commit('REMOVE_CART_ITEM', cartItem)
+    },
+    SHOW_CART({commit}) {
+      commit('SHOW_CART')
     },
     ADD_TO_FAVOURITES({commit}, product) {
       commit('SET_FAVOURITES', product)
