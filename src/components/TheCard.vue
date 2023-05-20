@@ -14,7 +14,7 @@
       <button
         :class="!product.inCart ? 'icon-btn add-btn' : 'icon-btn add-btn add-btn--active'"
         type="button"
-        @click="emit('addToCart', product)"
+        @click="emit('addCartItem', product)"
       >
         <BaseIcon name="add" v-if="!product.inCart"/>
         <BaseIcon name="added" v-if="product.inCart"/>
@@ -22,9 +22,9 @@
       </button>
     </div>
     <button
-      :class="!like ? 'icon-btn like-btn' : 'icon-btn like-btn like-btn--active'"
+      :class="!product.inFavorites ? 'icon-btn like-btn' : 'icon-btn like-btn like-btn--active'"
       type="button"
-      @click="emit('addToFavourites', product),  like = !like"
+      @click="emit('addFavorites', product)"
     >
       <BaseIcon name="like"/>
     </button>
@@ -33,7 +33,6 @@
 
 <script setup>
 import BaseIcon from "@/components/BaseIcon.vue";
-import { ref } from "vue";
 
 const props = defineProps({
   product: {
@@ -42,18 +41,11 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["addToCart", "addToFavourites"]);
-
-const like = ref(false)
+const emit = defineEmits(["addCartItem", "addFavorites"]);
 
 </script>
 
 <style lang="scss">
-.cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  row-gap: 50px;
-}
 
 .card {
   position: relative;

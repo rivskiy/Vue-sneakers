@@ -161,6 +161,13 @@ button {
     color: #808080;
   }
 }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 50px;
+}
+
   // banner                                           
 
 .banner {

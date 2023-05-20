@@ -1,12 +1,13 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
-import { URL } from '@/constants'
+import { URL, CART_URL, FAVORITES_URL, ORDERS_URL } from '@/constants'
 
 export default createStore({
   state: {
     products: [],
     cart: [],
-    favourites: [],
+    favorites: [],
+    orders: [],
     showCart: false
   },
   getters: {
@@ -19,22 +20,30 @@ export default createStore({
     SHOW_CART(state) {
       return state.showCart
     },
-    FAVOURITES(state) {
-      return state.favourites
+    FAVORITES(state) {
+      return state.favorites
     },
+    ORDERS(state) {
+      return state.orders
+    }
   },
   mutations: {
-    SET_PRODUCTS_TO_STATE: (state, products) => {
-      state.products = products
-    },
-    SET_CART: (state, product) => {
+    GET_PRODUCTS: (state, products) => state.products = products,
+
+
+    // CART                           
+    GET_CART: (state, products) => state.cart = products,
+
+    ADD_CART_ITEM: (state, product) => {
       state.products.forEach(el => {
         if (el === product) {
           el.inCart = true
         }
       })
+      product.id = state.cart.length + 1
       state.cart.push(product)
     },
+
     REMOVE_CART_ITEM: (state, cartItem) => {
       state.products.forEach(el => {
         if (el === cartItem) {
@@ -43,41 +52,137 @@ export default createStore({
       })
       state.cart = state.cart.filter(el => el !== cartItem)
     },
-    SHOW_CART: (state) => {
-      state.showCart = !state.showCart
+
+    SHOW_CART: state => state.showCart = !state.showCart,
+
+    CLEAR_CART: state => {
+      state.cart = []
+      state.products.forEach(el => el.inCart = false)
     },
-    SET_FAVOURITES: (state, product) => {
-      if (state.favourites.find(el => el === product)) {
-        state.favourites = state.favourites.filter(el => el !== product)
-      } else {
-        state.favourites.push(product)
-      }
-    }
-  },
-  actions: {
-    GET_PRODUCTS_FROM_API({ commit }) {
-      return axios(URL, {
-        method: 'GET'
+
+
+    // FAVORITES                           
+
+    GET_FAVORITES: (state, products) => {
+      products.map(el => el.inFavorites = true)
+      state.favorites = products
+    },
+
+    ADD_FAVORITES: (state, product) => {
+      state.products.forEach(el => {
+        if (el === product) {
+          el.inFavorites = true
+        }
       })
-        .then((products) => {
-          commit('SET_PRODUCTS_TO_STATE', products.data)
-          return products
-        })
-        .catch((error) => {
-          console.log(error)
-          return error
-        })
+      product.id = state.favorites.length + 1
+      state.favorites.push(product)
     },
-    ADD_TO_CART({commit}, product) {
-      commit('SET_CART', product)
+
+    REMOVE_FAVORITES: (state, product) => {
+      state.products.forEach(el => {
+        if (el === product) {
+          el.inFavorites = false
+        }
+      })
+      state.favorites = state.favorites.filter(el => el.id !== product.id)
     },
-    REMOVE_CART_ITEM({commit}, cartItem) {
-      commit('REMOVE_CART_ITEM', cartItem)
-    },
-    ADD_TO_FAVOURITES({commit}, product) {
-      commit('SET_FAVOURITES', product)
+
+
+
+    //                        ORDERS                           
+
+    // GET_ORDERS: (state, products) => state.orders = products,
+
+    ADD_ORDER: (state, orderItems) => {
+      state.orders.push(orderItems)
     },
   },
+
+
+
+
+  actions: {
+    GET_PRODUCTS({ commit }) {
+      axios.get(URL)
+        .then((products) => commit('GET_PRODUCTS', products.data))
+        .catch((error) => console.log(error))
+    },
+
+
+
+    // CART                           
+    GET_CART({ commit }) {
+      axios.get(CART_URL)
+        .then((products) => commit('GET_CART', products.data))
+        .catch((error) => console.log(error))
+    },
+
+    ADD_CART_ITEM({ commit }, product) {
+      axios.post(CART_URL, product)
+        .then(() => commit('ADD_CART_ITEM', product))
+        .catch((error) => console.log(error))
+    },
+
+    REMOVE_CART_ITEM({ commit }, cartItem) {
+      axios.delete(`${CART_URL}/${cartItem.id}`)
+        .then(() => commit('REMOVE_CART_ITEM', cartItem))
+        .catch((error) => console.log(error))
+    },
+
+    CLEAR_CART({ commit }, ids) {
+      async function clearCart(ids) {
+        for (let i = 1; i <= ids; i++) {
+          await axios.delete(`${CART_URL}/${i}`)
+          .catch((error) => console.log(error))
+        }
+      }
+      clearCart(ids)
+      commit('CLEAR_CART')
+    },
+
+
+
+
+    // FAVORITES                           
+
+    GET_FAVORITES({ commit, state }) {
+      if (state.favorites.length < 1) {
+        axios.get(FAVORITES_URL)
+        .then((response) => commit('GET_FAVORITES', response.data))
+      }
+    },
+
+    ADD_FAVORITES({ commit, state }, product) {
+      if (state.favorites.find(el => el === product)) {
+        axios.delete(`${FAVORITES_URL}/${product.id}`)
+          .then(() => commit('REMOVE_FAVORITES', product))
+      } else {
+        axios.post(FAVORITES_URL, product)
+          .then(() => commit('ADD_FAVORITES', product))
+      }
+    },
+
+
+
+
+    // ORDERS                           
+
+    // GET_ORDERS({ commit }) {
+    //   axios.get(ORDERS_URL)
+    //   // .then((response) => commit('GET_ORDERS', response.data))
+    //   .then((response) => {
+    //     const test = response.data.map()
+    //     console.log(test)
+    //   })
+    // },
+
+    ADD_ORDER({ commit }, orderItems) {
+      axios.post(ORDERS_URL, orderItems)
+        .then(() => commit('ADD_ORDER', orderItems))
+    },
+  },
+
+
   modules: {
   }
 })

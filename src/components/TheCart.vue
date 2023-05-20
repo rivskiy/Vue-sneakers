@@ -23,7 +23,7 @@
             <span>1299 руб.</span>
           </li>
         </ul>
-        <button class="cart-btn" type="button" @click="ordered = true">Оформить заказ</button>
+        <button class="cart-btn" type="button" @click="onOrder(cartItems)">Оформить заказ</button>
       </div>
       <TheEmptyCart v-else-if="!cartItems[0]"/>
       <TheCartOrder v-if="ordered"/>
@@ -35,18 +35,26 @@
 import TheCartItem from "@/components/TheCartItem.vue";
 import TheEmptyCart from "@/components/TheEmptyCart.vue";
 import TheCartOrder from '@/components/TheCartOrder.vue';
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
+
+const getCart = () => store.dispatch('GET_CART')
+onMounted(getCart)
 
 const cartItems = computed(() => store.getters.CART);
 
 const removeCartItem = cartItem => store.dispatch("REMOVE_CART_ITEM", cartItem);
 
 const showCart = () => store.commit('SHOW_CART')
-
 const ordered = ref(false)
+
+const onOrder = orderItems => {
+  store.dispatch('ADD_ORDER', orderItems)
+  store.dispatch('CLEAR_CART', orderItems.length)
+}
+
 
 </script>
 

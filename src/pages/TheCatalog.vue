@@ -26,8 +26,8 @@
           v-for="product in products"
           :key="product.id"
           :product="product"
-          @add-to-cart="addToCart(product)"
-          @add-to-favourites="addToFavourites(product)"
+          @add-cart-item="addCartItem(product)"
+          @add-favorites="addFavorites(product)"
         />
       </ul>
     </section>
@@ -41,20 +41,18 @@ import { onMounted, computed } from 'vue'
 
 const store = useStore()
 
-const getProducts = () => store.dispatch('GET_PRODUCTS_FROM_API')
+const getProducts = () => store.dispatch('GET_PRODUCTS')
 onMounted(getProducts)
 
 const products = computed(() => store.getters.PRODUCTS)
 
-const addToCart = product => store.dispatch('ADD_TO_CART', product)
+const addCartItem = product => store.dispatch('ADD_CART_ITEM', product)
 
-const addToFavourites = product => store.dispatch('ADD_TO_FAVOURITES', product)
+const addFavorites = product => store.dispatch('ADD_FAVORITES', product)
 
 </script>
 
 <style lang="scss">
-
-
 
 .cards-header {
   margin-bottom: 40px;
