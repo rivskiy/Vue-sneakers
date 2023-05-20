@@ -2,7 +2,7 @@
   <main class="main-wrapper">
     <section>
       <div class="cards-header">
-        <h1 class="cards-header__title">Все кроссовки</h1>
+        <h1 class="page-title">Все кроссовки</h1>
         <div class="search">
           <svg
             width="16"
@@ -22,7 +22,7 @@
         </div>
       </div>
       <ul class="cards">
-        <Card
+        <TheCard
           v-for="product in products"
           :key="product.id"
           :product="product"
@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import Card from '@/components/TheCard'
+import TheCard from '@/components/TheCard'
 import { useStore } from 'vuex'
 import { onMounted, computed } from 'vue'
 
@@ -54,11 +54,7 @@ const addToFavourites = product => store.dispatch('ADD_TO_FAVOURITES', product)
 
 <style lang="scss">
 
-.main-wrapper {
-  height: 100%;
-  padding: 60px;
-  padding-bottom: 0;
-}
+
 
 .cards-header {
   margin-bottom: 40px;
@@ -66,10 +62,6 @@ const addToFavourites = product => store.dispatch('ADD_TO_FAVOURITES', product)
   display: flex;
   justify-content: space-between;
   align-items: center;
-  &__title {
-    font-size: 32px;
-    font-weight: 700;
-  }
 }
 
 .search {

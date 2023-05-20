@@ -31,9 +31,6 @@ const emit = defineEmits(["removeCartItem"]);
 </script>
 
 <style lang="scss">
-.remove-btn {
-  margin-left: auto;
-}
 
 .cart-item {
   display: flex;
@@ -67,6 +64,8 @@ const emit = defineEmits(["removeCartItem"]);
 }
 
 .remove-btn {
+  margin-left: auto;
+
   border: 2px solid #dadada;
   & svg {
     stroke-width: 3px;
