@@ -14,7 +14,7 @@
       <button
         :class="!product.inCart ? 'icon-btn add-btn' : 'icon-btn add-btn add-btn--active'"
         type="button"
-        @click="emit('addCartItem', product)"
+        @click="addCartItem(product)"
       >
         <BaseIcon name="add" v-if="!product.inCart"/>
         <BaseIcon name="added" v-if="product.inCart"/>
@@ -24,7 +24,7 @@
     <button
       :class="!product.inFavorites ? 'icon-btn like-btn' : 'icon-btn like-btn like-btn--active'"
       type="button"
-      @click="emit('addFavorites', product)"
+      @click="addFavorites(product)"
     >
       <BaseIcon name="like"/>
     </button>
@@ -33,6 +33,7 @@
 
 <script setup>
 import BaseIcon from "@/components/BaseIcon.vue";
+import { useStore } from 'vuex'
 
 const props = defineProps({
   product: {
@@ -41,7 +42,11 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["addCartItem", "addFavorites"]);
+const store = useStore()
+
+const addCartItem = product => store.dispatch('ADD_CART_ITEM', product)
+
+const addFavorites = product => store.dispatch('ADD_FAVORITES', product)
 
 </script>
 
@@ -49,8 +54,9 @@ const emit = defineEmits(["addCartItem", "addFavorites"]);
 
 .card {
   position: relative;
-  width: 210px;
+  // width: 210px;
   padding: 28px;
+  // margin: 0 auto;
 
   border: 1px solid #f3f3f3;
   border-radius: 40px;
@@ -64,6 +70,7 @@ const emit = defineEmits(["addCartItem", "addFavorites"]);
     height: 112px;
   }
   &__title {
+    margin-bottom: 10px;
     font-size: inherit;
     font-weight: 400;
   }

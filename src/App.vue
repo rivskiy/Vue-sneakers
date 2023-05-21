@@ -9,12 +9,16 @@
 <script setup>
 import Header from '@/components/TheHeader'
 import Cart from '@/components/TheCart'
-import {computed, ref} from 'vue'
+import { onStopScroll } from './utils';
+import { computed } from 'vue'
 import { useStore } from 'vuex';
 
 const store = useStore()
 
-const showCart = computed(() => store.state.showCart)
+const showCart = computed(() => {
+  onStopScroll(store.state.showCart)
+  return store.state.showCart
+})
 
 </script>
 
@@ -22,6 +26,5 @@ const showCart = computed(() => store.state.showCart)
 .main {
   flex: 1;
   padding: 60px;
-  padding-bottom: 0;
 }
 </style>

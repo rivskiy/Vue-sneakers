@@ -17,6 +17,14 @@ export default createStore({
     CART(state) {
       return state.cart
     },
+    CART_SUM(state) {
+      let sum = 0
+      state.cart.forEach(el => sum = sum + el.price)
+      return sum
+    },
+    CART_QUANTITY(state) {
+      return state.cart.length
+    },
     SHOW_CART(state) {
       return state.showCart
     },
@@ -44,13 +52,13 @@ export default createStore({
       state.cart.push(product)
     },
 
-    REMOVE_CART_ITEM: (state, cartItem) => {
+    REMOVE_CART_ITEM: (state, product) => {
       state.products.forEach(el => {
-        if (el === cartItem) {
+        if (el === product) {
           el.inCart = false
         }
       })
-      state.cart = state.cart.filter(el => el !== cartItem)
+      state.cart = state.cart.filter(el => el !== product)
     },
 
     SHOW_CART: state => state.showCart = !state.showCart,
@@ -91,7 +99,7 @@ export default createStore({
 
     //                        ORDERS                           
 
-    // GET_ORDERS: (state, products) => state.orders = products,
+    GET_ORDERS: (state, products) => state.orders = products,
 
     ADD_ORDER: (state, orderItems) => {
       state.orders.push(orderItems)
@@ -102,10 +110,12 @@ export default createStore({
 
 
   actions: {
-    GET_PRODUCTS({ commit }) {
-      axios.get(URL)
-        .then((products) => commit('GET_PRODUCTS', products.data))
-        .catch((error) => console.log(error))
+    GET_PRODUCTS({ commit, state }) {
+      if (state.products.length < 1) {
+        axios.get(URL)
+          .then((products) => commit('GET_PRODUCTS', products.data))
+          .catch((error) => console.log(error))
+      }
     },
 
 
@@ -117,29 +127,30 @@ export default createStore({
         .catch((error) => console.log(error))
     },
 
-    ADD_CART_ITEM({ commit }, product) {
-      axios.post(CART_URL, product)
-        .then(() => commit('ADD_CART_ITEM', product))
-        .catch((error) => console.log(error))
-    },
-
-    REMOVE_CART_ITEM({ commit }, cartItem) {
-      axios.delete(`${CART_URL}/${cartItem.id}`)
-        .then(() => commit('REMOVE_CART_ITEM', cartItem))
-        .catch((error) => console.log(error))
-    },
-
-    CLEAR_CART({ commit }, ids) {
-      async function clearCart(ids) {
-        for (let i = 1; i <= ids; i++) {
-          await axios.delete(`${CART_URL}/${i}`)
+    ADD_CART_ITEM({ commit, state }, product) {
+      if (state.cart.find(el => el === product)) {
+        axios.delete(`${CART_URL}/${product.id}`)
+          .then(() => commit('REMOVE_CART_ITEM', product))
+      } else {
+        axios.post(CART_URL, product)
+          .then(() => commit('ADD_CART_ITEM', product))
           .catch((error) => console.log(error))
-        }
       }
-      clearCart(ids)
+    },
+
+    REMOVE_CART_ITEM({ commit }, product) {
+      axios.delete(`${CART_URL}/${product.id}`)
+        .then(() => commit('REMOVE_CART_ITEM', product))
+        .catch((error) => console.log(error))
+    },
+
+    // у mockAPI нет replace, по-этому удаляем адементы по отдельности
+    async CLEAR_CART({ commit }, ids) {
+      for (let i = 1; i <= ids; i++) {
+        await axios.delete(`${CART_URL}/${i}`)
+      }
       commit('CLEAR_CART')
     },
-
 
 
 
@@ -148,7 +159,7 @@ export default createStore({
     GET_FAVORITES({ commit, state }) {
       if (state.favorites.length < 1) {
         axios.get(FAVORITES_URL)
-        .then((response) => commit('GET_FAVORITES', response.data))
+          .then((response) => commit('GET_FAVORITES', response.data))
       }
     },
 
@@ -167,18 +178,16 @@ export default createStore({
 
     // ORDERS                           
 
-    // GET_ORDERS({ commit }) {
-    //   axios.get(ORDERS_URL)
-    //   // .then((response) => commit('GET_ORDERS', response.data))
-    //   .then((response) => {
-    //     const test = response.data.map()
-    //     console.log(test)
-    //   })
-    // },
+    GET_ORDERS({ commit, state }) {
+      if (state.orders.length < 1) {
+        axios.get(ORDERS_URL)
+          .then(({ data }) => commit('GET_ORDERS', data.reduce((prev, obj) => [...prev, ...obj.items], [])))
+      }
+    },
 
-    ADD_ORDER({ commit }, orderItems) {
-      axios.post(ORDERS_URL, orderItems)
-        .then(() => commit('ADD_ORDER', orderItems))
+    ADD_ORDER({ commit }, cartItems) {
+      axios.post(ORDERS_URL, { items: cartItems, })
+        .then(() => commit('ADD_ORDER', cartItems))
     },
   },
 

@@ -2,7 +2,7 @@
     <section class="orders" v-if="products[0]">
       <div class="orders__header">
         <router-link to="/">
-          <button class="icon-btn orders-btn" type="button">
+          <button class="icon-btn back-btn" type="button">
             <BaseIcon name="chevron" />
             <span class="visually-hidden">Вернуться</span>
           </button>
@@ -14,12 +14,10 @@
           v-for="product in products"
           :key="product.id"
           :product="product"
-          @add-cart-item="addCartItem(product)"
-          @add-favorites="addFavorites(product)"
         />
       </ul>
     </section>
-    <TheEmptyOrders else/>
+    <TheEmptyOrders v-if="!products[0]"/>
 </template>
 <script setup>
 import BaseIcon from "@/components/BaseIcon.vue";
@@ -30,14 +28,11 @@ import { onMounted, computed } from 'vue'
 
 const store = useStore()
 
-// const getOrders = () => store.dispatch('GET_ORDERS')
-// onMounted(getOrders)
+const getOrders = () => store.dispatch('GET_ORDERS')
+onMounted(getOrders)
 
 const products = computed(() => store.getters.ORDERS)
 
-const addCartItem = product => store.dispatch('ADD_CART_ITEM', product)
-
-const addFavorites = product => store.dispatch('ADD_FAVORITES', product)
 </script>
 
 <style lang="scss">
@@ -46,21 +41,7 @@ const addFavorites = product => store.dispatch('ADD_FAVORITES', product)
   &__header {
     display: flex;
     align-items: center;
-  }
-}
-
-.orders-btn {
-  margin-right: 20px;
-  border: 2px solid #dadada;
-  & svg {
-    height: 16px;
-    stroke-width: 3px;
-  }
-  &:hover {
-    background-color: #dadada;
-    & svg {
-      stroke: #fff;
-    }
+    margin-bottom: 40px;
   }
 }
 </style>

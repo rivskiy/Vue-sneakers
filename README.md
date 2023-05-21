@@ -1,7 +1,10 @@
-# sneakers
+## Интернет-магазин кроссовок Vue-sneakers
 
-### Интернет магазин кроссовок
 - Vue + Vuex + Vue Router
+- Axios
+- SCSS
+
+### Макет взят с курса по реакт на канале Archakov Blog
 
 ---
 

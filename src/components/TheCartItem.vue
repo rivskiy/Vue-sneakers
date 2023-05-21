@@ -36,7 +36,7 @@ const emit = defineEmits(["removeCartItem"]);
   display: flex;
   align-items: center;
   padding: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 
   border: 1px solid #f3f3f3;
   border-radius: 20px;

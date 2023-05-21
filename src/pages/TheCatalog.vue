@@ -26,8 +26,6 @@
           v-for="product in products"
           :key="product.id"
           :product="product"
-          @add-cart-item="addCartItem(product)"
-          @add-favorites="addFavorites(product)"
         />
       </ul>
     </section>
@@ -45,10 +43,6 @@ const getProducts = () => store.dispatch('GET_PRODUCTS')
 onMounted(getProducts)
 
 const products = computed(() => store.getters.PRODUCTS)
-
-const addCartItem = product => store.dispatch('ADD_CART_ITEM', product)
-
-const addFavorites = product => store.dispatch('ADD_FAVORITES', product)
 
 </script>
 

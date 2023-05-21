@@ -1,5 +1,5 @@
 <template>
-  <div class="overlay" @click.self="showCart">
+  <div class="overlay" @click.self="showCart" >
     <div class="cart-container">
       <div class="cart" v-if="cartItems[0] && !ordered">
         <h2 class="cart__title">Корзина</h2>
@@ -11,22 +11,17 @@
             @remove-cart-item="removeCartItem(cartItem)"
           />
         </ul>
-        <ul>
-          <li class="cost-item">
+          <div class="cost">
             <span>Итого:</span>
-            <div class="cost-item__dots"></div>
-            <span>25 998 руб.</span>
-          </li>
-          <li class="cost-item">
-            <span>Налог 5%:</span>
-            <div class="cost-item__dots"></div>
-            <span>1299 руб.</span>
-          </li>
-        </ul>
-        <button class="cart-btn" type="button" @click="onOrder(cartItems)">Оформить заказ</button>
+            <div class="cost__dots"></div>
+            <span class="cost__sum">{{ cartSum }} руб.</span>
+          </div>
+        <button class="cart-btn" type="button" @click="onOrder(cartItems)">
+          Оформить заказ
+        </button>
       </div>
-      <TheEmptyCart v-else-if="!cartItems[0]"/>
-      <TheCartOrder v-if="ordered"/>
+      <TheEmptyCart v-else-if="!cartItems[0]" />
+      <TheCartOrder v-if="ordered" />
     </div>
   </div>
 </template>
@@ -34,28 +29,28 @@
 <script setup>
 import TheCartItem from "@/components/TheCartItem.vue";
 import TheEmptyCart from "@/components/TheEmptyCart.vue";
-import TheCartOrder from '@/components/TheCartOrder.vue';
+import TheCartOrder from "@/components/TheCartOrder.vue";
 import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
 
-const getCart = () => store.dispatch('GET_CART')
-onMounted(getCart)
+const getCart = () => store.dispatch("GET_CART");
+onMounted(getCart);
 
 const cartItems = computed(() => store.getters.CART);
+const cartSum = computed(() => store.getters.CART_SUM);
 
-const removeCartItem = cartItem => store.dispatch("REMOVE_CART_ITEM", cartItem);
+const removeCartItem = (cartItem) =>
+  store.dispatch("REMOVE_CART_ITEM", cartItem);
 
-const showCart = () => store.commit('SHOW_CART')
-const ordered = ref(false)
+const showCart = () => store.commit("SHOW_CART");
+const ordered = ref(false);
 
-const onOrder = orderItems => {
-  store.dispatch('ADD_ORDER', orderItems)
-  store.dispatch('CLEAR_CART', orderItems.length)
-}
-
-
+const onOrder = (orderItems) => {
+  store.dispatch("ADD_ORDER", orderItems);
+  store.dispatch("CLEAR_CART", orderItems.length);
+};
 </script>
 
 <style lang="scss">
@@ -90,21 +85,28 @@ const onOrder = orderItems => {
   flex-direction: column;
   &__title {
     margin: 0;
+    margin-bottom: 20px;
     font-size: 24px;
   }
   &___list {
     flex: 1;
+    padding-right: 10px;
+    margin-bottom: 20px;
+    overflow: auto;
   }
 }
 
-.cost-item {
+.cost {
   display: flex;
   align-items: baseline;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   &__dots {
     flex: 1;
     margin: 0 10px;
     border-bottom: 1px dashed #dfdfdf;
+  }
+  &__sum {
+    font-weight: 700;
   }
 }
 </style>

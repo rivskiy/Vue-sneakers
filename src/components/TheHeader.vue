@@ -10,17 +10,18 @@
       </div>
     </router-link>
     <ul class="menu">
-      <li class="menu__sum" @click="showCart">
+      <li class="menu__cart" @click="showCart">
+        <span class="quantity" v-if="cartQuantity">{{ cartQuantity }}</span>
         <BaseIcon name="cart" class="menu__icon" />
-        <span>1205 руб.</span>
+        <span class="menu__sum">{{ cartSum }} руб.</span>
       </li>
-      <li>
+      <li class="menu__favorites">
         <router-link to="/favorites">
-          <BaseIcon name="like" class="menu__icon"/>
+          <BaseIcon name="like" class="menu__icon" />
           <span class="visually-hidden">Избранное</span>
         </router-link>
       </li>
-      <li>
+      <li class="menu__orders">
         <router-link to="/orders">
           <BaseIcon name="user" class="menu__icon" />
           <span class="visually-hidden">Профиль</span>
@@ -33,10 +34,14 @@
 <script setup>
 import BaseIcon from "@/components/BaseIcon.vue";
 import { useStore } from "vuex";
+import { computed } from "vue";
 
 const store = useStore();
 
 const showCart = () => store.commit("SHOW_CART");
+
+const cartSum = computed(() => store.getters.CART_SUM);
+const cartQuantity = computed(() => store.getters.CART_QUANTITY);
 </script>
 
 <style lang="scss">
@@ -72,10 +77,12 @@ const showCart = () => store.commit("SHOW_CART");
 .menu {
   width: 200px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  &__sum {
+  justify-content: end;
+  &__cart {
+    position: relative;
     display: flex;
+    align-items: center;
     &:hover {
       cursor: pointer;
     }
@@ -83,11 +90,39 @@ const showCart = () => store.commit("SHOW_CART");
   &__icon {
     stroke: #9b9b9b;
   }
-  & span {
+  &__sum {
+    position: relative;
     margin-left: 10px;
 
     font-weight: 600;
     color: #9d9d9d;
   }
+  &__favorites {
+    margin-left: auto;
+  }
+  &__orders {
+    margin-left: 30px;
+  }
+  & svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+.quantity {
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+
+  border-radius: 50%;
+  background-color: #1a9e32;
+  transform: translateX(-100%);
 }
 </style>
