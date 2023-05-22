@@ -8,7 +8,7 @@ export default createStore({
     cart: [],
     favorites: [],
     orders: [],
-    showCart: false
+    showCart: false,
   },
   getters: {
     PRODUCTS(state) {
@@ -33,6 +33,9 @@ export default createStore({
     },
     ORDERS(state) {
       return state.orders
+    },
+    SEARCH_VALUE(state) {
+      return state.searchValue
     }
   },
   mutations: {
@@ -181,7 +184,7 @@ export default createStore({
     GET_ORDERS({ commit, state }) {
       if (state.orders.length < 1) {
         axios.get(ORDERS_URL)
-          .then(({ data }) => commit('GET_ORDERS', data.reduce((prev, obj) => [...prev, ...obj.items], [])))
+          .then(({ data }) => commit('GET_ORDERS', data.map(obj => obj.items )))
       }
     },
 
