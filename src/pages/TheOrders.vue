@@ -28,7 +28,7 @@
   <TheEmptyOrders v-if="!products[0]" />
 </template>
 <script setup>
-import BaseIcon from "@/components/BaseIcon.vue";
+import BaseIcon from "@/components/UI/BaseIcon.vue";
 import TheEmptyOrders from "@/components/TheEmptyOrders.vue";
 import TheCard from "@/components/TheCard.vue";
 import { useStore } from "vuex";

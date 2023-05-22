@@ -20,7 +20,7 @@
   <TheEmptyFavorites v-if="!products[0]" />
 </template>
 <script setup>
-import BaseIcon from "@/components/BaseIcon.vue";
+import BaseIcon from "@/components/UI/BaseIcon.vue";
 import TheEmptyFavorites from "@/components/TheEmptyFavorites.vue";
 import TheCard from "@/components/TheCard.vue";
 import { useStore } from "vuex";

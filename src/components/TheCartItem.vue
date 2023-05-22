@@ -19,7 +19,8 @@
 </template>
 
 <script setup>
-import BaseIcon from "@/components/BaseIcon.vue";
+import BaseIcon from "@/components/UI/BaseIcon.vue";
+
 defineProps({
   cartItem: {
     type: Object,

@@ -1,7 +1,7 @@
 <template>
   <div class="overlay" @click.self="showCart">
     <div class="cart-container">
-      <div class="cart" v-if="cartItems[0] && !ordered">
+      <div class="cart" v-if="cartItems[0] && !isOrdered">
         <h2 class="cart__title">Корзина</h2>
         <ul class="cart___list">
           <TheCartItem
@@ -20,8 +20,8 @@
           Оформить заказ
         </button>
       </div>
-      <TheEmptyCart v-else-if="!cartItems[0]" />
-      <TheCartOrder v-if="ordered" />
+      <TheEmptyCart v-else-if="!cartItems[0] && !isOrdered" />
+      <TheCartOrder v-if="isOrdered" />
     </div>
   </div>
 </template>
@@ -40,12 +40,12 @@ onMounted(getCart);
 
 const cartItems = computed(() => store.getters.CART);
 const cartSum = computed(() => store.getters.CART_SUM);
+const isOrdered = computed(() => store.state.stateCart.isOrdered)
 
 const removeCartItem = (cartItem) =>
   store.dispatch("REMOVE_CART_ITEM", cartItem);
 
 const showCart = () => store.commit("SHOW_CART");
-const ordered = ref(false);
 
 const onOrder = (orderItems) => {
   store.dispatch("ADD_ORDER", orderItems);

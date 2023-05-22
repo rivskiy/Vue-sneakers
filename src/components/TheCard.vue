@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import BaseIcon from "@/components/BaseIcon.vue";
+import BaseIcon from "@/components/UI/BaseIcon.vue";
 import { useStore } from 'vuex'
 
 const props = defineProps({
@@ -54,9 +54,7 @@ const addFavorites = product => store.dispatch('ADD_FAVORITES', product)
 
 .card {
   position: relative;
-  // width: 210px;
   padding: 28px;
-  // margin: 0 auto;
 
   border: 1px solid #f3f3f3;
   border-radius: 40px;

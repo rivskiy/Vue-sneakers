@@ -16,8 +16,8 @@ import { useStore } from 'vuex';
 const store = useStore()
 
 const showCart = computed(() => {
-  onStopScroll(store.state.showCart)
-  return store.state.showCart
+  onStopScroll(store.state.stateCart.isShow)
+  return store.state.stateCart.isShow
 })
 
 </script>

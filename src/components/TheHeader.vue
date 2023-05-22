@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import BaseIcon from "@/components/BaseIcon.vue";
+import BaseIcon from "@/components/UI/BaseIcon.vue";
 import { useStore } from "vuex";
 import { computed } from "vue";
 

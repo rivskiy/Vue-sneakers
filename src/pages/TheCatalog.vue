@@ -24,7 +24,7 @@
 
 <script setup>
 import TheCard from '@/components/TheCard'
-import BaseIcon from '@/components/BaseIcon.vue';
+import BaseIcon from "@/components/UI/BaseIcon.vue";
 import { useStore } from 'vuex'
 import { onMounted, computed } from 'vue'
 
