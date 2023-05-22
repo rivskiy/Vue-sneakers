@@ -8,7 +8,9 @@
         </button>
       </router-link>
       <h1 class="page-title">Мои покупки</h1>
-      <button class="clear-btn" @@click="clearOrders">Очистить историю покупок</button>
+      <button class="clear-btn" @click="clearOrders(products)">
+        Очистить историю покупок
+      </button>
     </div>
     <ul class="orders__list" v-for="(order, index) in products" :key="index">
       <li>
@@ -38,6 +40,9 @@ const getOrders = () => store.dispatch("GET_ORDERS");
 onMounted(getOrders);
 
 const products = computed(() => store.getters.ORDERS);
+
+const clearOrders = (products) =>
+  store.dispatch("CLEAR_ORDERS", products.length);
 </script>
 
 <style lang="scss">
@@ -65,7 +70,7 @@ const products = computed(() => store.getters.ORDERS);
   color: #fff;
   border-radius: 18px;
   background-color: #fd6a6a;
-  transition:  0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
   &:hover {
     background-color: #f73232;
   }

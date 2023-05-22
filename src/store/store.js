@@ -107,6 +107,8 @@ export default createStore({
     ADD_ORDER: (state, orderItems) => {
       state.orders.push(orderItems)
     },
+
+    CLEAR_ORDERS: (state) => state.orders = []
   },
 
 
@@ -192,6 +194,15 @@ export default createStore({
       axios.post(ORDERS_URL, { items: cartItems, })
         .then(() => commit('ADD_ORDER', cartItems))
     },
+
+
+
+    async CLEAR_ORDERS({commit}, ids) {
+      for (let i = 1; i <= ids; i++) {
+        await axios.delete(`${ORDERS_URL}/${i}`)
+      }
+      commit('CLEAR_ORDERS')
+    }
   },
 
 

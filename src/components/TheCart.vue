@@ -1,5 +1,5 @@
 <template>
-  <div class="overlay" @click.self="showCart" >
+  <div class="overlay" @click.self="showCart">
     <div class="cart-container">
       <div class="cart" v-if="cartItems[0] && !ordered">
         <h2 class="cart__title">Корзина</h2>
@@ -11,11 +11,11 @@
             @remove-cart-item="removeCartItem(cartItem)"
           />
         </ul>
-          <div class="cost">
-            <span>Итого:</span>
-            <div class="cost__dots"></div>
-            <span class="cost__sum">{{ cartSum }} руб.</span>
-          </div>
+        <div class="cost">
+          <span>Итого:</span>
+          <div class="cost__dots"></div>
+          <span class="cost__sum">{{ cartSum }} руб.</span>
+        </div>
         <button class="cart-btn" type="button" @click="onOrder(cartItems)">
           Оформить заказ
         </button>
