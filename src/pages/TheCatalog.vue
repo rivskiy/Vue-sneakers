@@ -4,11 +4,8 @@
       <div class="cards-header">
         <h1 class="page-title">Все кроссовки</h1>
         <div class="search">
-          <BaseIcon name="search"/>
-          <input
-            type="text"
-            placeholder="Поиск"
-          />
+          <BaseIcon name="search" />
+          <input type="text" placeholder="Поиск" />
         </div>
       </div>
       <ul class="cards">
@@ -23,22 +20,20 @@
 </template>
 
 <script setup>
-import TheCard from '@/components/TheCard'
+import TheCard from "@/components/TheCard";
 import BaseIcon from "@/components/UI/BaseIcon.vue";
-import { useStore } from 'vuex'
-import { onMounted, computed } from 'vue'
+import { useStore } from "vuex";
+import { onMounted, computed } from "vue";
 
-const store = useStore()
+const store = useStore();
 
-const getProducts = () => store.dispatch('GET_PRODUCTS')
-onMounted(getProducts)
+const getProducts = () => store.dispatch("GET_PRODUCTS");
+onMounted(getProducts);
 
-const products = computed(() => store.getters.PRODUCTS)
-
+const products = computed(() => store.getters.PRODUCTS);
 </script>
 
 <style lang="scss">
-
 .cards-header {
   margin-bottom: 40px;
 
@@ -67,4 +62,19 @@ const products = computed(() => store.getters.PRODUCTS)
   }
 }
 
+@media (max-width: 768px) {
+  .cards-header {
+    flex-direction: column;
+    row-gap: 30px;
+  }
+  .search {
+    width: 100%;
+  }
+}
+@media (max-width: 425px) {
+  .cards-header {
+    row-gap: 15px;
+    margin-bottom: 20px;
+  }
+}
 </style>

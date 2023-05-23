@@ -49,6 +49,7 @@ const clearOrders = (products) =>
 .orders {
   height: 100%;
   &__header {
+    position: relative;
     display: flex;
     align-items: center;
     margin-bottom: 40px;
@@ -75,4 +76,21 @@ const clearOrders = (products) =>
     background-color: #f73232;
   }
 }
+
+@media (max-width: 768px) {
+.clear-btn {
+  padding: 10px 8px;
+
+  font-size: 10px;
+}
+}
+
+@media (max-width: 425px) {
+  .clear-btn {
+    position: absolute;
+    right: 0;
+    bottom: -150%;
+  }
+}
+
 </style>

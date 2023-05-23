@@ -1,7 +1,6 @@
 <template>
   <li class="card">
     <img
-      class="card__img"
       :src="require(`@/assets/img/sneakers/${product.img}`)"
       alt="Sneakers"
     />
@@ -12,28 +11,34 @@
         <p class="card__price">{{ product.price }} руб.</p>
       </div>
       <button
-        :class="!product.inCart ? 'icon-btn add-btn' : 'icon-btn add-btn add-btn--active'"
+        class="icon-btn add-btn"
+        :class="{addBtnActive:!product.inCart}"
         type="button"
         @click="addCartItem(product)"
       >
-        <BaseIcon name="add" v-if="!product.inCart"/>
-        <BaseIcon name="added" v-if="product.inCart"/>
+        <BaseIcon name="add" v-if="!product.inCart" />
+        <BaseIcon name="added" v-if="product.inCart" />
         <span class="visually-hidden">Добавить в корзину</span>
       </button>
     </div>
     <button
-      :class="!product.inFavorites ? 'icon-btn like-btn' : 'icon-btn like-btn like-btn--active'"
+      class=""
+      :class="
+        !product.inFavorites
+          ? 'icon-btn like-btn'
+          : 'icon-btn like-btn like-btn--active'
+      "
       type="button"
       @click="addFavorites(product)"
     >
-      <BaseIcon name="like"/>
+      <BaseIcon name="like" />
     </button>
   </li>
 </template>
 
 <script setup>
 import BaseIcon from "@/components/UI/BaseIcon.vue";
-import { useStore } from 'vuex'
+import { useStore } from "vuex";
 
 const props = defineProps({
   product: {
@@ -42,16 +47,14 @@ const props = defineProps({
   },
 });
 
-const store = useStore()
+const store = useStore();
 
-const addCartItem = product => store.dispatch('ADD_CART_ITEM', product)
+const addCartItem = (product) => store.dispatch("ADD_CART_ITEM", product);
 
-const addFavorites = product => store.dispatch('ADD_FAVORITES', product)
-
+const addFavorites = (product) => store.dispatch("ADD_FAVORITES", product);
 </script>
 
 <style lang="scss">
-
 .card {
   position: relative;
   padding: 28px;
@@ -62,10 +65,6 @@ const addFavorites = product => store.dispatch('ADD_FAVORITES', product)
   &:hover {
     box-shadow: 0px 20px 35px rgba(0, 0, 0, 0.06);
     transform: translateY(-5px);
-  }
-  &__img {
-    width: 133px;
-    height: 112px;
   }
   &__title {
     margin-bottom: 10px;
@@ -90,18 +89,23 @@ const addFavorites = product => store.dispatch('ADD_FAVORITES', product)
   }
 }
 
+
 .add-btn {
   border: 2px solid #dadada;
   &:hover {
     background-color: #b4ecbe;
   }
   & svg:hover {
-    stroke: #fff
+    stroke: #fff;
   }
-  &--active {
+  & .addBtnActive {
     border: none;
-    background: rgb(137,240,156);
-    background: linear-gradient(180deg, rgba(137,240,156,1) 0%, rgba(60,199,85,1) 100%);
+    background: rgb(137, 240, 156);
+    background: linear-gradient(
+      180deg,
+      rgba(137, 240, 156, 1) 0%,
+      rgba(60, 199, 85, 1) 100%
+    );
     & svg {
       stroke: #fff;
       stroke-width: 3px;
@@ -116,18 +120,36 @@ const addFavorites = product => store.dispatch('ADD_FAVORITES', product)
 
   border: 2px solid #dadada;
   &:hover {
-    background-color: #FEF0F0;
+    background-color: #fef0f0;
   }
   & svg {
     fill: #fff;
   }
   &--active {
     border: none;
-    background-color: #FEF0F0;
+    background-color: #fef0f0;
     & svg {
-      fill: #FF8585;
-      stroke: #FF8585;
+      fill: #ff8585;
+      stroke: #ff8585;
     }
+  }
+}
+@media (max-width: 768px) {
+  .card {
+    padding: 20px;
+  }
+}
+@media (max-width: 425px) {
+  .card {
+    padding: 10px;
+    border-radius: 20px;
+  }
+  .card__title {
+    font-size: 12px;
+  }
+  .like-btn {
+    top: 15px;
+    left: 15px;
   }
 }
 </style>

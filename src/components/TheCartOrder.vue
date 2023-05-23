@@ -7,7 +7,7 @@
     />
     <h3 class="cart-state__title cart-state__title--order">Заказ оформлен!</h3>
     <p class="cart-state__message">
-      Ваш заказ #18 скоро будет передан курьерской доставке
+      Ваш заказ скоро будет передан курьерской доставке
     </p>
     <BaseButton class="cart-state__btn" @click="showCart"/>
   </div>

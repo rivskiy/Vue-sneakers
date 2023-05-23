@@ -108,6 +108,7 @@ const cartQuantity = computed(() => store.getters.CART_QUANTITY);
     height: 24px;
   }
 }
+
 .quantity {
   position: absolute;
   left: 0;
@@ -124,5 +125,45 @@ const cartQuantity = computed(() => store.getters.CART_QUANTITY);
   border-radius: 50%;
   background-color: #1a9e32;
   transform: translateX(-100%);
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 30px;
+  }
+  .menu {
+    width: 100px;
+    justify-content: space-between;
+    &__sum {
+      display: none;
+    }
+    &__sum,
+    &__favorites,
+    &__orders {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .header {
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .menu {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    height: 50px;
+    background-color: #fff;
+    width: 100%;
+    justify-content: space-around;
+    border-top: 1px solid #eaeaea;
+    & svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
 }
 </style>
