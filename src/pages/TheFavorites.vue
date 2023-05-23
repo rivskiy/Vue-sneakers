@@ -17,12 +17,14 @@
       />
     </ul>
   </section>
-  <TheEmptyFavorites v-if="!products[0]" />
+  <TheEmptyFavorites v-if="!products[0] && !isLoading" />
+  <BaseLoader v-if="isLoading"/>
 </template>
 <script setup>
 import BaseIcon from "@/components/UI/BaseIcon.vue";
 import TheEmptyFavorites from "@/components/TheEmptyFavorites.vue";
 import TheCard from "@/components/TheCard.vue";
+import BaseLoader from "@/components/UI/BaseLoader.vue";
 import { useStore } from "vuex";
 import { onMounted, computed } from "vue";
 
@@ -32,6 +34,8 @@ const getFavorites = () => store.dispatch("GET_FAVORITES");
 onMounted(getFavorites);
 
 const products = computed(() => store.getters.FAVORITES);
+const isLoading = computed(() => store.state.isLoading);
+
 </script>
 
 <style lang="scss">

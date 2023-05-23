@@ -25,12 +25,14 @@
       </li>
     </ul>
   </section>
-  <TheEmptyOrders v-if="!products[0]" />
+  <TheEmptyOrders v-if="!products[0] && !isLoading"/>
+  <BaseLoader v-if="isLoading"/>
 </template>
 <script setup>
 import BaseIcon from "@/components/UI/BaseIcon.vue";
 import TheEmptyOrders from "@/components/TheEmptyOrders.vue";
 import TheCard from "@/components/TheCard.vue";
+import BaseLoader from "@/components/UI/BaseLoader.vue";
 import { useStore } from "vuex";
 import { onMounted, computed } from "vue";
 
@@ -40,6 +42,7 @@ const getOrders = () => store.dispatch("GET_ORDERS");
 onMounted(getOrders);
 
 const products = computed(() => store.getters.ORDERS);
+const isLoading = computed(() => store.state.isLoading);
 
 const clearOrders = (products) =>
   store.dispatch("CLEAR_ORDERS", products.length);

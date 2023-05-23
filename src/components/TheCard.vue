@@ -12,7 +12,7 @@
       </div>
       <button
         class="icon-btn add-btn"
-        :class="{addBtnActive:!product.inCart}"
+        :class="{addBtnActive: product.inCart}"
         type="button"
         @click="addCartItem(product)"
       >
@@ -98,7 +98,7 @@ const addFavorites = (product) => store.dispatch("ADD_FAVORITES", product);
   & svg:hover {
     stroke: #fff;
   }
-  & .addBtnActive {
+  &.addBtnActive {
     border: none;
     background: rgb(137, 240, 156);
     background: linear-gradient(

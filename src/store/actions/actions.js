@@ -6,6 +6,7 @@ export default {
     if (state.products.length < 1) {
       axios.get(URL)
         .then((products) => commit('GET_PRODUCTS', products.data))
+        .then(() => commit('LOADING'))
         .catch((error) => console.log(error))
     }
   },
@@ -47,6 +48,7 @@ export default {
     if (state.favorites.length < 1) {
       axios.get(FAVORITES_URL)
         .then((response) => commit('GET_FAVORITES', response.data))
+        .then(() => commit('LOADING'))
     }
   },
 
@@ -65,6 +67,7 @@ export default {
     if (state.orders.length < 1) {
       axios.get(ORDERS_URL)
         .then(({ data }) => commit('GET_ORDERS', data.map(obj => obj.items)))
+        .then(() => commit('LOADING'))
     }
   },
 

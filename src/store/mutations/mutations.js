@@ -66,5 +66,7 @@ export default {
     state.orders.push(orderItems)
   },
 
-  CLEAR_ORDERS: (state) => state.orders = []
+  CLEAR_ORDERS: (state) => state.orders = [],
+
+  LOADING: (state) => state.isLoading = false
 }

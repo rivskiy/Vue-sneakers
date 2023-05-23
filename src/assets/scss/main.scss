@@ -180,6 +180,13 @@ button {
   gap: 30px;
 }
 @media (max-width: 1024px) {
+  body {
+    padding: 0;
+    background-color: #fff;
+  }
+  .wrapper {
+    box-shadow: none;
+  }
   .cards {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -194,11 +201,6 @@ button {
   }
 }
 @media (max-width: 425px) {
-  body {
-    padding: 0;
-    background-color: #fff;
-
-  }
   .page-title {
     font-size: 22px;
   }

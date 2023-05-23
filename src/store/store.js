@@ -13,7 +13,8 @@ export default createStore({
     stateCart: {
       isShow: false,
       isOrdered: false
-    }
+    },
+    isLoading: true
   },
 
   getters,

@@ -1,29 +1,36 @@
 <template>
-  <main class="main-wrapper">
-    <section>
-      <div class="cards-header">
-        <h1 class="page-title">Все кроссовки</h1>
-        <div class="search">
-          <BaseIcon name="search" />
-          <input type="text" placeholder="Поиск" />
-        </div>
+  <section class="main-wrapper">
+    <div class="cards-header">
+      <h1 class="page-title">Все кроссовки</h1>
+      <BaseSelect
+        class="select"
+        :selected="selected"
+        :options="categories"
+        @select="sortByCategories"
+      />
+      <div class="search">
+        <BaseIcon name="search" />
+        <input type="text" placeholder="Поиск" />
       </div>
-      <ul class="cards">
-        <TheCard
-          v-for="product in products"
-          :key="product.id"
-          :product="product"
-        />
-      </ul>
-    </section>
-  </main>
+    </div>
+    <ul class="cards" v-if="!isLoading">
+      <TheCard
+        v-for="product in filteredProducts"
+        :key="product.id"
+        :product="product"
+      />
+    </ul>
+    <BaseLoader v-if="isLoading" />
+  </section>
 </template>
 
 <script setup>
 import TheCard from "@/components/TheCard";
+import BaseSelect from "@/components/UI/BaseSelect.vue";
 import BaseIcon from "@/components/UI/BaseIcon.vue";
+import BaseLoader from "@/components/UI/BaseLoader.vue";
 import { useStore } from "vuex";
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
 
 const store = useStore();
 
@@ -31,6 +38,36 @@ const getProducts = () => store.dispatch("GET_PRODUCTS");
 onMounted(getProducts);
 
 const products = computed(() => store.getters.PRODUCTS);
+const isLoading = computed(() => store.state.isLoading);
+
+const categories = [
+  {
+    name: "Все",
+    value: "all",
+  },
+  {
+    name: "Мужские",
+    value: "men",
+  },
+  {
+    name: "Женские",
+    value: "women",
+  },
+];
+const selected = ref("Категории");
+const sortedProducts = ref([]);
+const filteredProducts = computed(() =>
+  sortedProducts.value.length ? sortedProducts.value : products.value
+);
+const sortByCategories = (category) => {
+  sortedProducts.value = [];
+  products.value.map((item) => {
+    if (item.category === category.value) {
+      sortedProducts.value.push(item);
+    }
+  });
+  selected.value = category.name;
+};
 </script>
 
 <style lang="scss">
@@ -40,6 +77,11 @@ const products = computed(() => store.getters.PRODUCTS);
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.select {
+  margin-left: auto;
+  margin-right: 10px;
 }
 
 .search {
@@ -65,7 +107,10 @@ const products = computed(() => store.getters.PRODUCTS);
 @media (max-width: 768px) {
   .cards-header {
     flex-direction: column;
-    row-gap: 30px;
+    row-gap: 20px;
+  }
+  .select {
+    order: 1;
   }
   .search {
     width: 100%;
