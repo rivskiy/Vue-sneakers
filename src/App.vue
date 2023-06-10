@@ -8,11 +8,11 @@
 
 <script setup>
 import Header from '@/components/TheHeader'
-import Cart from '@/components/TheCart'
+import Cart from '@/components/cart/TheCart'
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .main {
   flex: 1;
   padding: 60px;

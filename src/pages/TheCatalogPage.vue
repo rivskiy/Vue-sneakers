@@ -100,7 +100,7 @@ const resetSearchResult = () => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .cards-header {
   position: relative;
   padding-bottom: 40px;

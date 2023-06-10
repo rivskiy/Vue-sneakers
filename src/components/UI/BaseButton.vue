@@ -19,7 +19,7 @@
 <script setup>
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .base-btn {
   position: relative;
   width: 245px;

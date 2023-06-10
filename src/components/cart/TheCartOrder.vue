@@ -21,6 +21,3 @@ const store = useStore();
 
 const showCart = () => store.commit("SHOW_CART");
 </script>
-
-<style lang="scss">
-</style>

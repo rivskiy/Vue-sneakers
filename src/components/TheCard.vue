@@ -22,7 +22,6 @@
       </button>
     </div>
     <button
-      class=""
       :class="
         !product.inFavorites
           ? 'icon-btn like-btn'
@@ -54,7 +53,7 @@ const addCartItem = (product) => store.dispatch("ADD_CART_ITEM", product);
 const addFavorites = (product) => store.dispatch("ADD_FAVORITES", product);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .card {
   position: relative;
   padding: 28px;

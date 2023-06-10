@@ -48,7 +48,7 @@ const clearOrders = (products) =>
   store.dispatch("CLEAR_ORDERS", products.length);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .orders {
   height: 100%;
   &__header {

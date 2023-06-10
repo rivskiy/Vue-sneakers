@@ -38,7 +38,7 @@ const isLoading = computed(() => store.state.isLoading);
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .favorites {
   height: 100%;
   &__header {

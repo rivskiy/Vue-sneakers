@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Catalog from '@/pages/TheCatalog'
-import Favorites from '@/pages/TheFavorites'
-import Orders from '@/pages/TheOrders'
-import NotFound from '@/pages/TheNotFound'
+import Catalog from '@/pages/TheCatalogPage'
+import Favorites from '@/pages/TheFavoritesPage'
+import Orders from '@/pages/TheOrdersPage'
+import NotFound from '@/pages/TheNotFoundPage'
 
 const routes = [
   {

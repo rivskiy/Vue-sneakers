@@ -31,7 +31,7 @@ defineProps({
 const emit = defineEmits(["removeCartItem"]);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .cart-item {
   display: flex;

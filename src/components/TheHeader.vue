@@ -1,17 +1,13 @@
 <template>
   <header class="header">
     <router-link to="/">
-      <div class="logo">
-        <img src="@/assets/img/logo.png" alt="logo" />
-        <div class="logo__container">
-          <h2 class="logo__title">Vue sneakers</h2>
-          <p class="logo__description">Магазин лучших кроссовок</p>
-        </div>
-      </div>
+      <TheLogo />
     </router-link>
-    <ul class="menu">
+    <ul class="header__menu menu">
       <li class="menu__cart" @click="showCart">
-        <span class="quantity" v-if="cartQuantity">{{ cartQuantity }}</span>
+        <span class="menu__quantity" v-if="cartQuantity">{{
+          cartQuantity
+        }}</span>
         <BaseIcon name="cart" class="menu__icon" />
         <span class="menu__sum">{{ cartSum }} руб.</span>
       </li>
@@ -32,6 +28,7 @@
 </template>
 
 <script setup>
+import TheLogo from "@/components/TheLogo.vue";
 import BaseIcon from "@/components/UI/BaseIcon.vue";
 import { useStore } from "vuex";
 import { computed } from "vue";
@@ -44,7 +41,7 @@ const cartSum = computed(() => store.getters.CART_SUM);
 const cartQuantity = computed(() => store.getters.CART_QUANTITY);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
   padding: 45px;
   display: flex;
@@ -52,33 +49,11 @@ const cartQuantity = computed(() => store.getters.CART_QUANTITY);
   border-bottom: 1px solid #eaeaea;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  & img {
-    width: 40px;
-    height: 40px;
-    margin-right: 16px;
-  }
-  &__title,
-  &__description {
-    margin: 0;
-  }
-  &__title {
-    font-size: 20px;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-  &__description {
-    color: #9d9d9d;
-  }
-}
-
 .menu {
   width: 200px;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   &__cart {
     position: relative;
     display: flex;
@@ -97,6 +72,23 @@ const cartQuantity = computed(() => store.getters.CART_QUANTITY);
     font-weight: 600;
     color: #9d9d9d;
   }
+  &__quantity {
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+
+    border-radius: 50%;
+    background-color: #1a9e32;
+    transform: translateX(-100%);
+  }
   &__favorites {
     margin-left: auto;
   }
@@ -107,24 +99,6 @@ const cartQuantity = computed(() => store.getters.CART_QUANTITY);
     width: 24px;
     height: 24px;
   }
-}
-
-.quantity {
-  position: absolute;
-  left: 0;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 11px;
-  font-weight: 600;
-  color: #fff;
-
-  border-radius: 50%;
-  background-color: #1a9e32;
-  transform: translateX(-100%);
 }
 
 @media (max-width: 768px) {
@@ -150,11 +124,13 @@ const cartQuantity = computed(() => store.getters.CART_QUANTITY);
     padding: 20px;
     flex-direction: column;
     align-items: center;
+    &__menu {
+      position: fixed;
+      bottom: 0;
+      z-index: 1;
+    }
   }
   .menu {
-    position: fixed;
-    bottom: 0;
-    z-index: 1;
     height: 50px;
     background-color: #fff;
     width: 100%;

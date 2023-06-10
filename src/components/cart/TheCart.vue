@@ -36,10 +36,10 @@
 </template>
 
 <script setup>
-import TheCartItem from "@/components/TheCartItem.vue";
-import TheEmptyCart from "@/components/TheEmptyCart.vue";
-import TheCartOrder from "@/components/TheCartOrder.vue";
-import BaseIcon from "./UI/BaseIcon.vue";
+import TheCartItem from "@/components/cart/TheCartItem.vue";
+import TheEmptyCart from "@/components/cart/TheEmptyCart.vue";
+import TheCartOrder from "@/components/cart/TheCartOrder.vue";
+import BaseIcon from "@/components/UI/BaseIcon.vue";
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 
@@ -65,7 +65,7 @@ const onOrder = (orderItems) => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .overlay {
   position: fixed;
   left: 0;
